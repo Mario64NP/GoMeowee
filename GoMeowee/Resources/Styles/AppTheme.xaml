@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- Semantic colors -->
+    <Color x:Key="AppBackground">#1f1f1f</Color>
+    <Color x:Key="SurfaceBackground">#141414</Color>
+    <Color x:Key="AccentColor">#D600AA</Color>
+    <Color x:Key="MutedText">#6E6E6E</Color>
+
+    <Color x:Key="BgPrimary">#0a0a0a</Color>
+    <Color x:Key="BgCard">#1a1a1a</Color>
+    <Color x:Key="TextPrimary">#ffffff</Color>
+    <Color x:Key="TextSecondary">#a0a0a0</Color>
+    <Color x:Key="Border">#2a2a2a</Color>
+
+    <!-- Typography -->
+    <Style x:Key="PageTitle" TargetType="Label">
+        <Setter Property="FontSize">
+            <Setter.Value>
+                <x:Double>28</x:Double>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FontAttributes" Value="Bold"/>
+        <Setter Property="TextColor" Value="{StaticResource White}"/>
+    </Style>
+
+    <Style x:Key="SectionTitle" TargetType="Label">
+        <Setter Property="FontSize">
+            <Setter.Value>
+                <x:Double>18</x:Double>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FontAttributes" Value="Bold"/>
+        <Setter Property="TextColor" Value="{StaticResource White}"/>
+    </Style>
+
+    <Style x:Key="MutedLabel" TargetType="Label">
+        <Setter Property="FontSize">
+            <Setter.Value>
+                <x:Double>13</x:Double>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="TextColor" Value="{StaticResource MutedText}"/>
+    </Style>
+
+    <!-- Containers -->
+    <Style x:Key="Card" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource SurfaceBackground}"/>
+        <Setter Property="StrokeThickness" Value="0"/>
+        <Setter Property="Padding" Value="16"/>
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="16"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="DateHeaderLabel" TargetType="Label">
+        <Setter Property="FontSize">
+            <Setter.Value>
+                <x:Double>11</x:Double>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FontAttributes" Value="Bold"/>
+        <Setter Property="TextColor" Value="{StaticResource TextSecondary}"/>
+        <Setter Property="TextTransform" Value="Uppercase"/>
+        <Setter Property="CharacterSpacing">
+            <Setter.Value>
+                <x:Double>0.8</x:Double>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Margin" Value="4,0,0,12"/>
+    </Style>
+
+    <Style x:Key="EventTimeLabel" TargetType="Label">
+        <Setter Property="FontSize">
+            <Setter.Value>
+                <x:Double>13</x:Double>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FontAttributes" Value="Bold"/>
+        <Setter Property="TextColor" Value="{StaticResource AccentColor}"/>
+    </Style>
+
+    <Style x:Key="EventTagLabel" TargetType="Label">
+        <Setter Property="FontSize">
+            <Setter.Value>
+                <x:Double>10</x:Double>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FontAttributes" Value="Bold"/>
+        <Setter Property="TextColor" Value="{StaticResource AccentColor}"/>
+        <Setter Property="BackgroundColor" Value="#26D600AA"/>
+        <Setter Property="Padding" Value="8,3"/>
+        <Setter Property="TextTransform" Value="Uppercase"/>
+    </Style>
+
+    <Style x:Key="EventTitleLabel" TargetType="Label">
+        <Setter Property="FontSize">
+            <Setter.Value>
+                <x:Double>16</x:Double>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FontAttributes" Value="Bold"/>
+        <Setter Property="TextColor" Value="{StaticResource TextPrimary}"/>
+        <Setter Property="LineBreakMode" Value="TailTruncation"/>
+        <Setter Property="MaxLines" Value="2"/>
+    </Style>
+
+    <Style x:Key="EventLocationLabel" TargetType="Label">
+        <Setter Property="FontSize">
+            <Setter.Value>
+                <x:Double>13</x:Double>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="TextColor" Value="{StaticResource TextSecondary}"/>
+        <Setter Property="LineBreakMode" Value="TailTruncation"/>
+    </Style>
+
+    <Style x:Key="InterestedLabel" TargetType="Label">
+        <Setter Property="FontSize">
+            <Setter.Value>
+                <x:Double>12</x:Double>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="TextColor" Value="{StaticResource TextSecondary}"/>
+    </Style>
+
+    <Style x:Key="Login field" TargetType="Entry">
+        <Setter Property="BackgroundColor" Value="#11FFFFFF"/>
+    </Style>
+
+</ResourceDictionary>

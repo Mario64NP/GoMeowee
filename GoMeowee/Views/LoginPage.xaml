@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodels="clr-namespace:GoMeowee.ViewModels"
     x:Class="GoMeowee.Views.LoginPage">
+    BackgroundColor="{StaticResource AppBackground}">
 
     <Grid>
         <VerticalStackLayout
@@ -14,13 +15,26 @@
             Padding="24">
 
             <VerticalStackLayout Spacing="6">
-                <Label Text="Sign in"/>
-                <Label Text="Use your GoMeowee account"/>
+                <Label
+                    Text="Sign in"
+                    Style="{StaticResource PageTitle}" />
+
+                <Label
+                    Text="Use your GoMeowee account"
+                    Style="{StaticResource MutedLabel}" />
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="14">
-                <Entry Placeholder="Username" Text="{Binding Username}"/>
-                <Entry Placeholder="Password" Text="{Binding Password}" IsPassword="True"/>
+                <Entry
+                        Placeholder="Username"
+                        Text="{Binding Username}" 
+                        Style="{StaticResource Login field}"/>
+
+                <Entry
+                        Placeholder="Password"
+                        IsPassword="True"
+                        Text="{Binding Password}" 
+                        Style="{StaticResource Login field}"/>
             </VerticalStackLayout>
 
             <Button Text="Login"/>
