@@ -3,12 +3,17 @@
     x:Class="GoMeowee.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:views="clr-namespace:GoMeowee.Views">
+    xmlns:views="clr-namespace:GoMeowee.Views"
+    Shell.NavBarIsVisible="False">
 
     <TabBar>
         <ShellContent
             Title="Events"
             ContentTemplate="{DataTemplate views:EventsPage}" />
+
+        <ShellContent 
+            Title="Profile"
+            ContentTemplate="{DataTemplate views:ProfilePage}" />
     </TabBar>
 
 </Shell>
