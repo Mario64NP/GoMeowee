@@ -38,6 +38,8 @@ namespace GoMeowee
             builder.Services.AddSingleton<AppShell>();
             builder.Services.AddSingleton<AuthShell>();
 
+            builder.Services.AddSingleton<EventsService>();
+
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<EventsViewModel>();
 
