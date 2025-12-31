@@ -2,8 +2,10 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:GoMeowee.Models"
     xmlns:viewmodels="clr-namespace:GoMeowee.ViewModels"
     x:Class="GoMeowee.Views.EventsPage"
+    x:DataType="viewmodels:EventsViewModel"
     BackgroundColor="{StaticResource AppBackground}">
 
     <CollectionView
@@ -15,7 +17,7 @@
 
         <!-- Group header -->
         <CollectionView.GroupHeaderTemplate>
-            <DataTemplate>
+            <DataTemplate x:DataType="models:EventsDayGroup">
                 <Label
                         Text="{Binding Header}"
                         Style="{StaticResource DateHeaderLabel}"/>
@@ -24,7 +26,7 @@
 
         <!-- Event item -->
         <CollectionView.ItemTemplate>
-            <DataTemplate>
+            <DataTemplate x:DataType="models:EventListItemDto">
                 <Border BackgroundColor="{StaticResource BgCard}"
                     Stroke="{StaticResource Border}"
                     StrokeThickness="1"

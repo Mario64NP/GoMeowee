@@ -3,10 +3,13 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodels="clr-namespace:GoMeowee.ViewModels"
-    x:Class="GoMeowee.Views.LoginPage">
+    x:Class="GoMeowee.Views.LoginPage"
+    x:DataType="viewmodels:LoginViewModel"
+    Shell.NavBarIsVisible="False"
     BackgroundColor="{StaticResource AppBackground}">
 
     <Grid>
+        <!-- Center column -->
         <VerticalStackLayout
             HorizontalOptions="Center"
             VerticalOptions="Center"
@@ -14,6 +17,7 @@
             Spacing="28"
             Padding="24">
 
+            <!-- Header -->
             <VerticalStackLayout Spacing="6">
                 <Label
                     Text="Sign in"
@@ -24,6 +28,8 @@
                     Style="{StaticResource MutedLabel}" />
             </VerticalStackLayout>
 
+            <!-- Inputs -->
+            <!-- <Border Style="{StaticResource Card}"> -->
             <VerticalStackLayout Spacing="14">
                 <Entry
                         Placeholder="Username"
@@ -36,9 +42,14 @@
                         Text="{Binding Password}" 
                         Style="{StaticResource Login field}"/>
             </VerticalStackLayout>
+            <!-- </Border> -->
 
-            <Button Text="Login"/>
+            <!-- Action -->
+            <Button
+                Text="Login"
+                Command="{Binding LoginCommand}" />
 
+            <!-- Error -->
             <Label
                 Text="{Binding ErrorMessage}"
                 IsVisible="{Binding HasError}"

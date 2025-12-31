@@ -6,6 +6,7 @@
     xmlns:models="clr-namespace:GoMeowee.Models"
     xmlns:viewmodels="clr-namespace:GoMeowee.ViewModels"
     x:Class="GoMeowee.Views.EventDetailsPage"
+    x:DataType="viewmodels:EventDetailsViewModel"
     BackgroundColor="{StaticResource AppBackground}">
 
     <ContentPage.Resources>
@@ -92,7 +93,7 @@
                     Margin="0,4,0,0">
 
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="models:UserInterestDto">
                             <Grid
                                 ColumnDefinitions="44,*,Auto"
                                 Padding="8"
