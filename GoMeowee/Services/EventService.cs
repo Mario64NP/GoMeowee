@@ -35,4 +35,33 @@ public class EventsService(ApiClient apiClient)
 
         return result.Response;
     }
+
+    public async Task<IEnumerable<UserInterestDto>?> GetInterestedPeopleAsync(Guid id)
+    {
+        var result = await _apiClient.GetAsync<IEnumerable<UserInterestDto>>($"api/Events/{id}/interests");
+
+        if (!result.IsSuccess)
+            return null;
+
+        return result.Response;
+    }
+
+    public async Task<bool> SignalInterestAsync(Guid id, string? message)
+    {
+        var request = new SignalEventInterestRequest()
+        {
+            Message = message
+        };
+
+        var result = await _apiClient.PostAsync<object>($"api/Events/{id}/interest", request);
+
+        return result.IsSuccess;
+    }
+
+    public async Task<bool> RemoveInterestAsync(Guid id)
+    {
+        var result = await _apiClient.DeleteAsync($"api/Events/{id}/interest");
+
+        return result.IsSuccess;
+    }
 }

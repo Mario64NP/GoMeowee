@@ -23,6 +23,7 @@
                     Source="{Binding ImageUrl}"
                     Aspect="AspectFill"/>
 
+                <!-- Subtle fade to background -->
                 <BoxView VerticalOptions="End" HeightRequest="60">
                     <BoxView.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
@@ -67,6 +68,73 @@
                     BackgroundColor="{StaticResource AccentColor}"
                     TextColor="White"
                     FontAttributes="Bold" />
+
+            </VerticalStackLayout>
+
+            <!-- DIVIDER -->
+            <BoxView
+                HeightRequest="1"
+                Margin="20,8"
+                Color="{StaticResource Border}" />
+
+            <!-- INTERESTED PEOPLE -->
+            <VerticalStackLayout Padding="20" Spacing="12">
+
+                <Label
+                    Text="Interested people"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource TextPrimary}" />
+
+                <CollectionView
+                    ItemsSource="{Binding InterestedPeople}"
+                    SelectionMode="None"
+                    Margin="0,4,0,0">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                ColumnDefinitions="44,*,Auto"
+                                Padding="8"
+                                Margin="0,4">
+
+                                <!-- Avatar -->
+                                <Image
+                                    Source="{Binding AvatarUrl}"
+                                    WidthRequest="36"
+                                    HeightRequest="36"
+                                    Aspect="AspectFill">
+                                    <Image.Clip>
+                                        <EllipseGeometry
+                                            Center="18,18"
+                                            RadiusX="18"
+                                            RadiusY="18" />
+                                    </Image.Clip>
+                                </Image>
+
+                                <!-- Name + message -->
+                                <VerticalStackLayout
+                                    Grid.Column="1"
+                                    Spacing="2">
+
+                                    <Label
+                                        Text="{Binding DisplayName}"
+                                        FontAttributes="Bold"
+                                        FontSize="13"
+                                        TextColor="{StaticResource TextPrimary}" />
+
+                                    <Label
+                                        Text="{Binding Message}"
+                                        FontSize="12"
+                                        TextColor="{StaticResource TextSecondary}"
+                                        LineBreakMode="TailTruncation"
+                                        MaxLines="2" />
+                                </VerticalStackLayout>
+
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
             </VerticalStackLayout>
 
