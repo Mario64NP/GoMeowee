@@ -1,9 +1,13 @@
-﻿namespace GoMeowee;
+﻿using GoMeowee.Views;
+
+namespace GoMeowee;
 
 public partial class AppShell : Shell
 {
     public AppShell()
     {
         InitializeComponent();
+
+        Routing.RegisterRoute(nameof(EventDetailsPage), typeof(EventDetailsPage));
     }
 }

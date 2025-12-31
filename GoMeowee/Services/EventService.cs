@@ -15,4 +15,24 @@ public class EventsService(ApiClient apiClient)
 
         return result.Response;
     }
+
+    public async Task<EventDetailsDto?> GetEventByIdAsync(Guid id)
+    {
+        var result = await _apiClient.GetAsync<EventDetailsDto>($"api/Events/{id}");
+
+        if (!result.IsSuccess)
+            return null;
+
+        return result.Response;
+    }
+
+    public async Task<bool> GetEventInterestByIdAsync(Guid id)
+    {
+        var result = await _apiClient.GetAsync<bool>($"api/Events/{id}/interest");
+
+        if (!result.IsSuccess)
+            return false;
+
+        return result.Response;
+    }
 }

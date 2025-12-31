@@ -2,6 +2,7 @@
 using GoMeowee.Services;
 using GoMeowee.Views;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace GoMeowee.ViewModels;
 
@@ -10,10 +11,12 @@ public partial class EventsViewModel : BaseViewModel
     private readonly EventsService _eventsService;
 
     public ObservableCollection<EventsDayGroup> EventsByDay { get; } = [];
+    public ICommand OpenEventCommand { get; }
 
     public EventsViewModel(EventsService eventsService)
     {
         _eventsService = eventsService;
+        OpenEventCommand = new Command<EventListItemDto>(OpenEvent);
     }
 
     public async Task LoadAsync()
@@ -47,5 +50,14 @@ public partial class EventsViewModel : BaseViewModel
         {
             IsBusy = false;
         }
+    }
+
+    private async void OpenEvent(EventListItemDto ev)
+    {
+        if (ev == null)
+            return;
+
+        await Shell.Current.GoToAsync(
+            $"{nameof(EventDetailsPage)}?EventId={ev.Id}");
     }
 }

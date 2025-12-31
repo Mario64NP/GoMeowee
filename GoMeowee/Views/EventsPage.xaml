@@ -10,7 +10,8 @@
             ItemsSource="{Binding EventsByDay}"
             IsGrouped="True"
             Margin="12"
-            SelectionMode="Single">
+            SelectionMode="Single"
+            SelectionChanged="OnEventSelected">
 
         <!-- Group header -->
         <CollectionView.GroupHeaderTemplate>

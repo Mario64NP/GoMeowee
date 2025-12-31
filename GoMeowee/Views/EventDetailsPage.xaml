@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:conv="clr-namespace:GoMeowee.Converters"
+    xmlns:models="clr-namespace:GoMeowee.Models"
+    xmlns:viewmodels="clr-namespace:GoMeowee.ViewModels"
+    x:Class="GoMeowee.Views.EventDetailsPage"
+    BackgroundColor="{StaticResource AppBackground}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:InterestTextConverter x:Key="InterestTextConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="0">
+
+            <!-- COVER IMAGE -->
+            <Grid HeightRequest="220">
+                <Image
+                    Source="{Binding ImageUrl}"
+                    Aspect="AspectFill"/>
+
+                <BoxView VerticalOptions="End" HeightRequest="60">
+                    <BoxView.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="Transparent" Offset="0" />
+                            <GradientStop Color="{StaticResource AppBackground}" Offset="1" />
+                        </LinearGradientBrush>
+                    </BoxView.Background>
+                </BoxView>
+            </Grid>
+
+            <!-- EVENT INFO -->
+            <VerticalStackLayout Padding="20" Spacing="14">
+
+                <Label
+                    Text="{Binding Title}"
+                    FontSize="26"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource TextPrimary}" />
+
+                <HorizontalStackLayout Spacing="10">
+                    <Label Text="🕐" FontSize="14" />
+                    <Label
+                        Text="{Binding StartsAt, StringFormat='{0:dddd, MMM d · h:mm tt}'}"
+                        FontSize="14"
+                        TextColor="{StaticResource TextSecondary}" />
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Spacing="10">
+                    <Label Text="📍" FontSize="14" />
+                    <Label
+                        Text="{Binding Location}"
+                        FontSize="14"
+                        TextColor="{StaticResource TextSecondary}" />
+                </HorizontalStackLayout>
+
+                <!-- INTEREST BUTTON -->
+                <Button
+                    Text="{Binding IsUserInterested, Converter={StaticResource InterestTextConverter}}"
+                    Command="{Binding ToggleInterestCommand}"
+                    CornerRadius="10"
+                    HeightRequest="46"
+                    BackgroundColor="{StaticResource AccentColor}"
+                    TextColor="White"
+                    FontAttributes="Bold" />
+
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
