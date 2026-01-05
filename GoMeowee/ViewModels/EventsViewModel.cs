@@ -9,13 +9,15 @@ namespace GoMeowee.ViewModels;
 public partial class EventsViewModel : BaseViewModel
 {
     private readonly EventService _eventsService;
+    private readonly HttpClient _httpClient;
 
     public ObservableCollection<EventsDayGroup> EventsByDay { get; } = [];
     public ICommand OpenEventCommand { get; }
 
-    public EventsViewModel(EventService eventsService)
+    public EventsViewModel(EventService eventsService, HttpClient httpClient)
     {
         _eventsService = eventsService;
+        _httpClient = httpClient;
         OpenEventCommand = new Command<EventListItemDto>(OpenEvent);
     }
 
@@ -32,10 +34,12 @@ public partial class EventsViewModel : BaseViewModel
 
             if (events is null)
             {
-                //pop-up message saying failed to load
                 await Shell.Current.DisplayAlertAsync("Error", "Failed to load events", "OK");
                 return;
             }
+
+            foreach (var e in events)
+                e.FullImageUrl = _httpClient.BaseAddress + e.ImageUrl;
 
             var grouped = events
                 .OrderBy(e => e.StartsAt)

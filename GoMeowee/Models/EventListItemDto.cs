@@ -7,5 +7,7 @@ public class EventListItemDto
     public DateTime StartsAt { get; set; }
     public string Location { get; set; } = string.Empty;
     public string? ImageUrl { get; set; }
+    public string? FullImageUrl { get; set; }
+    public bool HasImage => ImageUrl != null;
     public int InterestedCount { get; set; }
 }

@@ -2,11 +2,15 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:conv="clr-namespace:GoMeowee.Converters"
     xmlns:models="clr-namespace:GoMeowee.Models"
     xmlns:viewmodels="clr-namespace:GoMeowee.ViewModels"
     x:Class="GoMeowee.Views.EventsPage"
     x:DataType="viewmodels:EventsViewModel"
     BackgroundColor="{StaticResource AppBackground}">
+    <ContentPage.Resources>
+        <conv:InvertedBoolConverter x:Key="InvertedBoolConverter"/>
+    </ContentPage.Resources>
 
     <CollectionView
             ItemsSource="{Binding EventsByDay}"
@@ -38,24 +42,7 @@
                     </Border.StrokeShape>
 
                     <Grid ColumnDefinitions="120,12,*" ColumnSpacing="0">
-                        <Border Grid.Column="0" WidthRequest="120" HeightRequest="120" VerticalOptions="Start">
-                            <Border.Style>
-                                <Style TargetType="Border">
-                                    <Setter Property="IsVisible" Value="False" />
-
-                                    <Style.Triggers>
-                                        <DataTrigger TargetType="Border" 
-                                                         Binding="{Binding ImageUrl, TargetNullValue='EMPTY', FallbackValue='EMPTY'}" 
-                                                         Value="EMPTY">
-                                            <Setter Property="IsVisible" Value="True" />
-                                        </DataTrigger>
-
-                                        <DataTrigger TargetType="Border" Binding="{Binding ImageUrl}" Value="">
-                                            <Setter Property="IsVisible" Value="True" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Border.Style>
+                        <Border Grid.Column="0" WidthRequest="120" HeightRequest="120" VerticalOptions="Start" IsVisible="{Binding HasImage, Converter={StaticResource InvertedBoolConverter}}">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="6"/>
                             </Border.StrokeShape>
@@ -68,20 +55,7 @@
                             <Label Text="🎸" FontSize="65" HorizontalOptions="Center" VerticalOptions="Center" Opacity="1"/>
                         </Border>
 
-                        <Image Grid.Column="0" WidthRequest="120" HeightRequest="120" VerticalOptions="Start" 
-                                   Source="{Binding ImageUrl}">
-                            <Image.Triggers>
-                                <DataTrigger TargetType="Image" 
-                                                 Binding="{Binding ImageUrl, TargetNullValue='HIDE'}" 
-                                                 Value="HIDE">
-                                    <Setter Property="IsVisible" Value="False" />
-                                </DataTrigger>
-
-                                <DataTrigger TargetType="Image" Binding="{Binding ImageUrl}" Value="">
-                                    <Setter Property="IsVisible" Value="False" />
-                                </DataTrigger>
-                            </Image.Triggers>
-                        </Image>
+                        <Image Grid.Column="0" WidthRequest="120" HeightRequest="120" VerticalOptions="Start" Source="{Binding FullImageUrl}" IsVisible="{Binding HasImage}"/>
 
                         <VerticalStackLayout Grid.Column="2" Spacing="0">
                             <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,10">
