@@ -9,19 +9,10 @@ namespace GoMeowee.ViewModels;
 [QueryProperty(nameof(EventId), "EventId")]
 public partial class EventDetailsViewModel : BaseViewModel
 {
-    private readonly EventsService _eventsService;
+    private readonly EventService _eventsService;
     private readonly IAuthState _authState;
 
-    public Guid EventId
-    {
-        get => _eventId;
-        set
-        {
-            _eventId = value;
-            _ = LoadAsync();
-        }
-    }
-    private Guid _eventId;
+    public Guid EventId { get; set { field = value; _ = LoadAsync(); } }
 
     public string Title { get; private set; } = string.Empty;
     public string Description { get; private set; } = string.Empty;
@@ -33,7 +24,7 @@ public partial class EventDetailsViewModel : BaseViewModel
     public ObservableCollection<UserInterestDto> InterestedPeople { get; private set; } = [];
     public ICommand ToggleInterestCommand { get; }
 
-    public EventDetailsViewModel(EventsService eventsService, IAuthState authState)
+    public EventDetailsViewModel(EventService eventsService, IAuthState authState)
     {
         _eventsService = eventsService;
         _authState = authState;

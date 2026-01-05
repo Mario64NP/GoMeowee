@@ -3,6 +3,7 @@ using GoMeowee.Services.Interfaces;
 using GoMeowee.Shells;
 using GoMeowee.ViewModels;
 using GoMeowee.Views;
+using Microsoft.Extensions.Logging;
 
 namespace GoMeowee
 {
@@ -19,12 +20,7 @@ namespace GoMeowee
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            /*var handler = new HttpClientHandler
-            {
-                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) =>  true 
-            };*/
-
-            builder.Services.AddSingleton(new HttpClient() /*handler)*/
+            builder.Services.AddSingleton(new HttpClient()
             {
                 BaseAddress = new Uri("https://z90wj05w-7271.euw.devtunnels.ms/")
             });
@@ -38,7 +34,7 @@ namespace GoMeowee
             builder.Services.AddSingleton<AppShell>();
             builder.Services.AddSingleton<AuthShell>();
 
-            builder.Services.AddSingleton<EventsService>();
+            builder.Services.AddSingleton<EventService>();
 
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<EventsViewModel>();

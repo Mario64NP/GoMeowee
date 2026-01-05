@@ -2,13 +2,11 @@
 
 namespace GoMeowee.Services;
 
-public class EventsService(ApiClient apiClient)
+public class EventService(ApiClient apiClient)
 {
-    private readonly ApiClient _apiClient = apiClient;
-
     public async Task<List<EventListItemDto>?> GetEventsAsync()
     {
-        var result = await _apiClient.GetAsync<List<EventListItemDto>>("api/Events");
+        var result = await apiClient.GetAsync<List<EventListItemDto>>("api/Events");
 
         if (!result.IsSuccess)
             return null;
@@ -18,7 +16,7 @@ public class EventsService(ApiClient apiClient)
 
     public async Task<EventDetailsDto?> GetEventByIdAsync(Guid id)
     {
-        var result = await _apiClient.GetAsync<EventDetailsDto>($"api/Events/{id}");
+        var result = await apiClient.GetAsync<EventDetailsDto>($"api/Events/{id}");
 
         if (!result.IsSuccess)
             return null;
@@ -28,7 +26,7 @@ public class EventsService(ApiClient apiClient)
 
     public async Task<bool> GetEventInterestByIdAsync(Guid id)
     {
-        var result = await _apiClient.GetAsync<bool>($"api/Events/{id}/interest");
+        var result = await apiClient.GetAsync<bool>($"api/Events/{id}/interest");
 
         if (!result.IsSuccess)
             return false;
@@ -38,7 +36,7 @@ public class EventsService(ApiClient apiClient)
 
     public async Task<IEnumerable<UserInterestDto>?> GetInterestedPeopleAsync(Guid id)
     {
-        var result = await _apiClient.GetAsync<IEnumerable<UserInterestDto>>($"api/Events/{id}/interests");
+        var result = await apiClient.GetAsync<IEnumerable<UserInterestDto>>($"api/Events/{id}/interests");
 
         if (!result.IsSuccess)
             return null;
@@ -53,14 +51,14 @@ public class EventsService(ApiClient apiClient)
             Message = message
         };
 
-        var result = await _apiClient.PostAsync<object>($"api/Events/{id}/interest", request);
+        var result = await apiClient.PostAsync<object>($"api/Events/{id}/interest", request);
 
         return result.IsSuccess;
     }
 
     public async Task<bool> RemoveInterestAsync(Guid id)
     {
-        var result = await _apiClient.DeleteAsync($"api/Events/{id}/interest");
+        var result = await apiClient.DeleteAsync($"api/Events/{id}/interest");
 
         return result.IsSuccess;
     }

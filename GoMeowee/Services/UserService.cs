@@ -2,13 +2,11 @@
 
 namespace GoMeowee.Services;
 
-public class UserService(ApiClient client)
+public class UserService(ApiClient apiClient)
 {
-    private readonly ApiClient _apiClient = client;
-
-    public async Task<UserDetailsDto?> GetMyProfileAsync()
+    public async Task<UserDetailsDto?> GetCurrentUserAsync()
     {
-        var result = await _apiClient.GetAsync<UserDetailsDto>($"api/Users/me");
+        var result = await apiClient.GetAsync<UserDetailsDto>("api/Users/me");
 
         if (!result.IsSuccess)
             return null;
@@ -18,7 +16,7 @@ public class UserService(ApiClient client)
 
     public async Task<UserDetailsDto?> GetUserByUsernameAsync(string username)
     {
-        var result = await _apiClient.GetAsync<UserDetailsDto>($"api/Users/{username}");
+        var result = await apiClient.GetAsync<UserDetailsDto>($"api/Users/{username}");
 
         if (!result.IsSuccess)
             return null;

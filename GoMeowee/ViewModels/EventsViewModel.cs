@@ -8,12 +8,12 @@ namespace GoMeowee.ViewModels;
 
 public partial class EventsViewModel : BaseViewModel
 {
-    private readonly EventsService _eventsService;
+    private readonly EventService _eventsService;
 
     public ObservableCollection<EventsDayGroup> EventsByDay { get; } = [];
     public ICommand OpenEventCommand { get; }
 
-    public EventsViewModel(EventsService eventsService)
+    public EventsViewModel(EventService eventsService)
     {
         _eventsService = eventsService;
         OpenEventCommand = new Command<EventListItemDto>(OpenEvent);
