@@ -39,12 +39,13 @@ public partial class EventsViewModel : BaseViewModel
             }
 
             foreach (var e in events)
-                e.FullImageUrl = _httpClient.BaseAddress + e.ImageUrl;
+                e.FullImageUrl = e.ImageUrl is not null ? _httpClient.BaseAddress + e.ImageUrl : null;
 
             var grouped = events
                 .OrderBy(e => e.StartsAt)
                 .GroupBy(e => e.StartsAt.Date)
-                .Select(g => new EventsDayGroup(g.Key, g));
+                .Select(g => new EventsDayGroup(g.Key, g))
+                .ToList();
 
             EventsByDay.Clear();
             foreach (var group in grouped)

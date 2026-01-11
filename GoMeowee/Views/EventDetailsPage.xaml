@@ -21,7 +21,7 @@
             <!-- COVER IMAGE -->
             <Grid HeightRequest="220">
                 <Image
-                    Source="{Binding ImageUrl}"
+                    Source="{Binding FullImageUrl}"
                     Aspect="AspectFill"/>
 
                 <!-- Subtle fade to background -->
@@ -95,13 +95,13 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:UserInterestDto">
                             <Grid
-                                ColumnDefinitions="44,*,Auto"
-                                Padding="8"
-                                Margin="0,4">
+                                ColumnDefinitions="36,10,Auto"
+                                Padding="0"
+                                Margin="0,20">
 
                                 <!-- Avatar -->
                                 <Image
-                                    Source="{Binding AvatarUrl}"
+                                    Source="{Binding FullAvatarUrl}"
                                     WidthRequest="36"
                                     HeightRequest="36"
                                     Aspect="AspectFill">
@@ -115,19 +115,28 @@
 
                                 <!-- Name + message -->
                                 <VerticalStackLayout
-                                    Grid.Column="1"
+                                    Grid.Column="2"
                                     Spacing="2">
 
-                                    <Label
-                                        Text="{Binding DisplayName}"
-                                        FontAttributes="Bold"
-                                        FontSize="13"
-                                        TextColor="{StaticResource TextPrimary}" />
+                                    <HorizontalStackLayout>
+                                        <Label
+                                            Text="{Binding DisplayName}"
+                                            FontAttributes="Bold"
+                                            FontSize="13"
+                                            TextColor="{StaticResource TextPrimary}" />
+
+                                        <Label
+                                            Text="{Binding InterestedAtRelative, StringFormat='{0:HH:mm}'}"
+                                            ToolTipProperties.Text="{Binding InterestedAt, StringFormat='{0:f}'}"
+                                            FontSize="11"
+                                            TextColor="{StaticResource TextSecondary}" 
+                                            Margin="8,0,0,0"/>
+                                    </HorizontalStackLayout>
 
                                     <Label
                                         Text="{Binding Message}"
-                                        FontSize="12"
-                                        TextColor="{StaticResource TextSecondary}"
+                                        FontSize="13"
+                                        TextColor="{StaticResource TextPrimary}"
                                         LineBreakMode="TailTruncation"
                                         MaxLines="2" />
                                 </VerticalStackLayout>

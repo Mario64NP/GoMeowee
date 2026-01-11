@@ -11,6 +11,7 @@ public partial class EventDetailsViewModel : BaseViewModel
 {
     private readonly EventService _eventsService;
     private readonly IAuthState _authState;
+    private readonly HttpClient _httpClient;
 
     public Guid EventId { get; set { field = value; _ = LoadAsync(); } }
 
@@ -19,16 +20,18 @@ public partial class EventDetailsViewModel : BaseViewModel
     public string Location { get; private set; } = string.Empty;
     public string Category { get; private set; } = string.Empty;
     public string? ImageUrl { get; private set; }
+    public string? FullImageUrl { get; private set; } 
     public DateTime StartsAt { get; private set; }
     public int InterestedCount { get; private set; }
     public bool IsUserInterested { get; private set; }
     public ObservableCollection<UserInterestDto> InterestedPeople { get; private set; } = [];
     public ICommand ToggleInterestCommand { get; }
 
-    public EventDetailsViewModel(EventService eventsService, IAuthState authState)
+    public EventDetailsViewModel(EventService eventsService, IAuthState authState, HttpClient httpClient)
     {
         _eventsService = eventsService;
         _authState = authState;
+        _httpClient = httpClient;
         ToggleInterestCommand = new Command(async () => await ToggleInterestAsync());
     }
 
@@ -56,6 +59,8 @@ public partial class EventDetailsViewModel : BaseViewModel
             InterestedCount = ev.InterestedCount;
             IsUserInterested = interested;
 
+            FullImageUrl = _httpClient.BaseAddress + ImageUrl;
+
             OnPropertyChanged(string.Empty);
 
             InterestedPeople.Clear();
@@ -64,7 +69,11 @@ public partial class EventDetailsViewModel : BaseViewModel
 
             if (interests is not null)
                 foreach (var person in interests)
+                {
+                    person.FullAvatarUrl = person.AvatarUrl is not null ? _httpClient.BaseAddress + person.AvatarUrl : null;
+                    person.InterestedAtRelative = GetRelativeTime(person.InterestedAt);
                     InterestedPeople.Add(person);
+                }
         }
         finally
         {
@@ -95,18 +104,20 @@ public partial class EventDetailsViewModel : BaseViewModel
             }
             else if (!IsUserInterested)
             {
-                if (await _eventsService.SignalInterestAsync(EventId, null)) // change message
+                string? message = await Shell.Current.DisplayPromptAsync("Add a message", "", "OK", "Cancel", "(optional)");
+                if (await _eventsService.SignalInterestAsync(EventId, message))
                 {
                     IsUserInterested = true;
                     InterestedCount++;
 
                     var myInterest = new UserInterestDto()
                     {
-                        AvatarUrl = _authState.CurrentUser!.AvatarUrl,
+                        FullAvatarUrl = _httpClient.BaseAddress + _authState.CurrentUser!.AvatarUrl,
                         Username = _authState.CurrentUser.Username,
                         DisplayName = _authState.CurrentUser.DisplayName,
                         InterestedAt = DateTime.Now,
-                        Message = "Test message"
+                        InterestedAtRelative = "now",
+                        Message = message
                     };
                     InterestedPeople.Insert(0, myInterest);
                 }
@@ -119,5 +130,21 @@ public partial class EventDetailsViewModel : BaseViewModel
         {
             IsBusy = false;
         }
+    }
+
+    private string GetRelativeTime(DateTime dateTime)
+    {
+        var span = DateTime.Now - dateTime;
+
+        if (span.TotalSeconds < 60)
+            return $"{(int)span.TotalSeconds}s ago";
+        if (span.TotalMinutes < 60)
+            return $"{(int)span.TotalMinutes}m ago";
+        if (span.TotalHours < 24)
+            return $"{(int)span.TotalHours}h ago";
+        if (span.TotalDays < 7)
+            return $"{(int)span.TotalDays}d ago";
+
+        return $"{(int)(span.TotalDays / 7)}w ago";
     }
 }
