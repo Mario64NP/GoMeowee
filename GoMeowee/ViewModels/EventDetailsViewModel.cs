@@ -17,6 +17,7 @@ public partial class EventDetailsViewModel : BaseViewModel
     public string Title { get; private set; } = string.Empty;
     public string Description { get; private set; } = string.Empty;
     public string Location { get; private set; } = string.Empty;
+    public string Category { get; private set; } = string.Empty;
     public string? ImageUrl { get; private set; }
     public DateTime StartsAt { get; private set; }
     public int InterestedCount { get; private set; }
@@ -49,6 +50,7 @@ public partial class EventDetailsViewModel : BaseViewModel
             Title = ev.Title;
             Description = ev.Description;
             Location = ev.Location;
+            Category = ev.Category;
             ImageUrl = ev.ImageUrl;
             StartsAt = ev.StartsAt;
             InterestedCount = ev.InterestedCount;
