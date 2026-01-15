@@ -11,6 +11,7 @@
 
     <ContentPage.Resources>
         <conv:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        <conv:AvatarConverter x:Key="AvatarConverter" />
     </ContentPage.Resources>
 
     <Grid RowDefinitions="Auto,*">
@@ -22,7 +23,7 @@
                 Command="{Binding GoBackCommand}" 
                 Style="{StaticResource IconButton}"
                 IsVisible="{Binding IsMe, Converter={x:StaticResource InvertedBoolConverter}}"/>
-                <Label
+            <Label 
                 Grid.Column="1" 
                 Text="{Binding Username, StringFormat='@{0}'}" 
                 Style="{StaticResource NavTitle}"/>
@@ -50,7 +51,7 @@
                     <!-- Avatar -->
                     <Border Style="{StaticResource AvatarLarge}">
                         <Image 
-                            Source="{Binding AvatarUrl}" 
+                            Source="{Binding AvatarUrl, Converter={StaticResource AvatarConverter}}" 
                             Aspect="AspectFill"/>
                     </Border>
                     
@@ -130,19 +131,19 @@
                                     <!-- Post Header: Avatar, Name, Time -->
                                     <Grid ColumnDefinitions="36,10,*,Auto" Margin="0,0,0,10">
                                         <Border Style="{StaticResource AvatarSmall}">
-                                            <Image Source="{Binding FullAvatarUrl}" Aspect="AspectFill"/>
+                                            <Image Source="{Binding FullAvatarUrl, Converter={StaticResource AvatarConverter}}" Aspect="AspectFill"/>
                                         </Border>
-
+                                        
                                         <VerticalStackLayout Grid.Column="2" Spacing="0" VerticalOptions="Center">
-                <Label
+                                            <Label 
                                                 Text="{Binding DisplayName}" 
                                                 Style="{StaticResource PostAuthorName}"/>
                                             <Label 
                                                 Text="{Binding InterestedAtRelative}" 
                                                 Style="{StaticResource PostTimestamp}"/>
-            </VerticalStackLayout>
+                                        </VerticalStackLayout>
                                     </Grid>
-
+                                    
                                     <!-- Interest Message -->
                                     <Label 
                                         Text="{Binding Message}"
@@ -150,7 +151,7 @@
                                         Margin="0,0,0,12"/>
                                     
                                     <!-- Event Preview Card -->
-            <Border
+                                    <Border 
                                         StrokeShape="RoundRectangle 12"
                                         Stroke="{StaticResource Border}"
                                         StrokeThickness="1"
@@ -213,10 +214,10 @@
                                                         Text="{Binding StartsAt, StringFormat='{0:ddd, MMM d · h:mm tt}'}" 
                                                         Style="{StaticResource PostTimestamp}"/>
                                                 </HorizontalStackLayout>
-
+                                                
                                                 <HorizontalStackLayout Spacing="6">
                                                     <Label Text="📍" FontSize="12"/>
-                    <Label
+                                                    <Label 
                                                         Text="{Binding Location}" 
                                                         Style="{StaticResource PostTimestamp}"
                                                         LineBreakMode="TailTruncation"/>
@@ -235,17 +236,17 @@
                                                     </Label>
                                                 </HorizontalStackLayout>
                                             </VerticalStackLayout>
-
-                </VerticalStackLayout>
-            </Border>
-
-        </VerticalStackLayout>
+                                            
+                                        </VerticalStackLayout>
+                                    </Border>
+                                    
+                                </VerticalStackLayout>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
                 </VerticalStackLayout>
 
             </VerticalStackLayout>
-    </ScrollView>
+        </ScrollView>
     </Grid>
 </ContentPage>

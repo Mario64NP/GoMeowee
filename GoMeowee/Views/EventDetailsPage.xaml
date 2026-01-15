@@ -12,6 +12,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <conv:InterestTextConverter x:Key="InterestTextConverter" />
+            <conv:AvatarConverter x:Key="AvatarConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -101,7 +102,7 @@
 
                                 <!-- Avatar -->
                                 <Image
-                                    Source="{Binding FullAvatarUrl}"
+                                    Source="{Binding FullAvatarUrl, Converter={StaticResource AvatarConverter}}"
                                     WidthRequest="36"
                                     HeightRequest="36"
                                     Aspect="AspectFill">
