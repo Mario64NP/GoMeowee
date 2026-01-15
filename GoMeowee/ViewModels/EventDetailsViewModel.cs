@@ -24,7 +24,7 @@ public partial class EventDetailsViewModel : BaseViewModel
     public DateTime StartsAt { get; private set; }
     public int InterestedCount { get; private set; }
     public bool IsUserInterested { get; private set; }
-    public ObservableCollection<UserInterestDto> InterestedPeople { get; private set; } = [];
+    public ObservableCollection<EventInterestDto> InterestedPeople { get; private set; } = [];
     public ICommand ToggleInterestCommand { get; }
 
     public EventDetailsViewModel(EventService eventsService, IAuthState authState, HttpClient httpClient)
@@ -110,7 +110,7 @@ public partial class EventDetailsViewModel : BaseViewModel
                     IsUserInterested = true;
                     InterestedCount++;
 
-                    var myInterest = new UserInterestDto()
+                    var myInterest = new EventInterestDto()
                     {
                         FullAvatarUrl = _httpClient.BaseAddress + _authState.CurrentUser!.AvatarUrl,
                         Username = _authState.CurrentUser.Username,
@@ -132,7 +132,7 @@ public partial class EventDetailsViewModel : BaseViewModel
         }
     }
 
-    private string GetRelativeTime(DateTime dateTime)
+    private static string GetRelativeTime(DateTime dateTime)
     {
         var span = DateTime.Now - dateTime;
 

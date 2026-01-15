@@ -96,11 +96,8 @@
                     Margin="0,4,0,0">
 
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="models:UserInterestDto">
-                            <Grid
-                                ColumnDefinitions="36,10,Auto"
-                                Padding="0"
-                                Margin="0,20">
+                        <DataTemplate x:DataType="models:EventInterestDto">
+                            <Grid ColumnDefinitions="36,10,Auto" Padding="0,5">
 
                                 <!-- Avatar -->
                                 <Image

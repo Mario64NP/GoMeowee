@@ -14,9 +14,9 @@ public class EventService(ApiClient apiClient)
         return result.Response;
     }
 
-    public async Task<EventDetailsDto?> GetEventByIdAsync(Guid id)
+    public async Task<EventDetailsDto?> GetEventByIdAsync(Guid eventId)
     {
-        var result = await apiClient.GetAsync<EventDetailsDto>($"api/Events/{id}");
+        var result = await apiClient.GetAsync<EventDetailsDto>($"api/Events/{eventId}");
 
         if (!result.IsSuccess)
             return null;
@@ -24,9 +24,9 @@ public class EventService(ApiClient apiClient)
         return result.Response;
     }
 
-    public async Task<bool> GetEventInterestByIdAsync(Guid id)
+    public async Task<bool> GetEventInterestByIdAsync(Guid eventId)
     {
-        var result = await apiClient.GetAsync<bool>($"api/Events/{id}/interest");
+        var result = await apiClient.GetAsync<bool>($"api/Events/{eventId}/interest");
 
         if (!result.IsSuccess)
             return false;
@@ -34,9 +34,9 @@ public class EventService(ApiClient apiClient)
         return result.Response;
     }
 
-    public async Task<IEnumerable<UserInterestDto>?> GetInterestedPeopleAsync(Guid id)
+    public async Task<IEnumerable<EventInterestDto>?> GetInterestedPeopleAsync(Guid eventId)
     {
-        var result = await apiClient.GetAsync<IEnumerable<UserInterestDto>>($"api/Events/{id}/interests");
+        var result = await apiClient.GetAsync<IEnumerable<EventInterestDto>>($"api/Events/{eventId}/interests");
 
         if (!result.IsSuccess)
             return null;
@@ -44,21 +44,21 @@ public class EventService(ApiClient apiClient)
         return result.Response;
     }
 
-    public async Task<bool> SignalInterestAsync(Guid id, string? message)
+    public async Task<bool> SignalInterestAsync(Guid eventId, string? message)
     {
         var request = new SignalEventInterestRequest()
         {
             Message = message
         };
 
-        var result = await apiClient.PostAsync<object>($"api/Events/{id}/interest", request);
+        var result = await apiClient.PostAsync<object>($"api/Events/{eventId}/interest", request);
 
         return result.IsSuccess;
     }
 
-    public async Task<bool> RemoveInterestAsync(Guid id)
+    public async Task<bool> RemoveInterestAsync(Guid eventId)
     {
-        var result = await apiClient.DeleteAsync($"api/Events/{id}/interest");
+        var result = await apiClient.DeleteAsync($"api/Events/{eventId}/interest");
 
         return result.IsSuccess;
     }

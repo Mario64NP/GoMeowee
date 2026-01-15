@@ -24,6 +24,16 @@ public class UserService(ApiClient apiClient)
         return result.Response;
     }
 
+    public async Task<IEnumerable<UserInterestDto>?> GetInterestedEventsByUserAsync(string username)
+    {
+        var result = await apiClient.GetAsync<IEnumerable<UserInterestDto>>($"api/Users/{username}/interests");
+
+        if (!result.IsSuccess)
+            return null;
+
+        return result.Response;
+    }
+
     public async Task<bool> UploadAvatar()
     {
         return true; 
