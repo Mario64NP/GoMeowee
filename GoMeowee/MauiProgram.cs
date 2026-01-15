@@ -41,11 +41,13 @@ namespace GoMeowee
             builder.Services.AddTransient<EventsViewModel>();
             builder.Services.AddTransient<EventDetailsViewModel>();
             builder.Services.AddTransient<ProfilePageViewModel>();
+            builder.Services.AddTransient<SettingsViewModel>();
 
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<EventsPage>();
             builder.Services.AddTransient<EventDetailsPage>();
             builder.Services.AddTransient<ProfilePage>();
+            builder.Services.AddTransient<SettingsPage>();
 
 
 #if DEBUG

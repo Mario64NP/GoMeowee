@@ -1,19 +1,12 @@
-using GoMeowee.Services.Interfaces;
+using GoMeowee.ViewModels;
 
 namespace GoMeowee.Views;
 
 public partial class SettingsPage : ContentPage
 {
-	private readonly IAuthService _authService;
-	public SettingsPage(IAuthService authService)
-	{
-		InitializeComponent();
-
-		_authService = authService;
-	}
-
-    private async void OnLogoutClicked(object sender, EventArgs e)
+    public SettingsPage(SettingsViewModel viewModel)
     {
-        await _authService.LogoutAsync();
+        InitializeComponent();
+        BindingContext = viewModel;
     }
 }

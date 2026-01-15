@@ -1,32 +1,108 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GoMeowee.Views.SettingsPage">
-    
-    <VerticalStackLayout
-        Padding="24"
-        Spacing="24">
+             xmlns:viewmodels="clr-namespace:GoMeowee.ViewModels"
+             x:Class="GoMeowee.Views.SettingsPage"
+             x:DataType="viewmodels:SettingsViewModel"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource AppBackground}">
 
-        <Label
-            Text="Settings"
-            FontSize="28"
-            FontAttributes="Bold" />
+    <Grid RowDefinitions="Auto,*">
+        
+        <!-- Navigation Header -->
+        <Grid Style="{StaticResource NavHeader}">
+            <Button 
+                Text="←" 
+                Command="{Binding GoBackCommand}" 
+                Style="{StaticResource IconButton}"/>
+            <Label 
+                Grid.Column="1" 
+                Text="Settings" 
+                Style="{StaticResource NavTitle}"/>
+            <!-- Empty space for symmetry -->
+            <BoxView Grid.Column="2" WidthRequest="44" BackgroundColor="Transparent"/>
+        </Grid>
 
-        <VerticalStackLayout Spacing="12">
-            <Label Text="General" FontAttributes="Bold" />
+        <!-- Settings Content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20,8,20,32" Spacing="0">
 
-            <!-- future toggles go here -->
-            <Label
-                Text="More settings coming later"
-                Opacity="0.6" />
-        </VerticalStackLayout>
+                <!-- Account Section -->
+                <Label Text="Account" Style="{StaticResource SettingsSection}"/>
+                
+                <Border Style="{StaticResource SettingsRow}">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Change password" Style="{StaticResource SettingsRowLabel}"/>
+                        <Label Grid.Column="1" Text="›" TextColor="{StaticResource MutedText}" FontSize="18"/>
+                    </Grid>
+                </Border>
+                <BoxView HeightRequest="1" Color="{StaticResource Border}"/>
+                <Border Style="{StaticResource SettingsRow}" StrokeShape="RoundRectangle 0,0,12,12">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Privacy" Style="{StaticResource SettingsRowLabel}"/>
+                        <Label Grid.Column="1" Text="›" TextColor="{StaticResource MutedText}" FontSize="18"/>
+                    </Grid>
+                </Border>
+                <BoxView HeightRequest="1" Color="{StaticResource Border}"/>
+                <Border Style="{StaticResource SettingsRow}" StrokeShape="RoundRectangle 12,12,0,0">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Blocked" Style="{StaticResource SettingsRowLabel}"/>
+                        <Label Grid.Column="1" Text="›" TextColor="{StaticResource MutedText}" FontSize="18"/>
+                    </Grid>
+                </Border>
 
-        <BoxView HeightRequest="1" Opacity="0.2" />
+                <!-- Preferences Section -->
+                <Label Text="Preferences" Style="{StaticResource SettingsSection}"/>
+                
+                <Border Style="{StaticResource SettingsRow}" StrokeShape="RoundRectangle 12,12,0,0">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Notifications" Style="{StaticResource SettingsRowLabel}"/>
+                        <Switch Grid.Column="1" IsToggled="True" OnColor="{StaticResource AccentColor}"/>
+                    </Grid>
+                </Border>
+                <BoxView HeightRequest="1" Color="{StaticResource Border}"/>
+                <Border Style="{StaticResource SettingsRow}" StrokeShape="RoundRectangle 0,0,12,12">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Dark mode" Style="{StaticResource SettingsRowLabel}"/>
+                        <Switch Grid.Column="1" IsToggled="True" OnColor="{StaticResource AccentColor}" IsEnabled="False"/>
+                    </Grid>
+                </Border>
 
-        <Button
-            Text="Log out"
-            TextColor="Red"
-            Clicked="OnLogoutClicked" />
+                <!-- Support Section -->
+                <Label Text="Support" Style="{StaticResource SettingsSection}"/>
+                
+                <Border Style="{StaticResource SettingsRow}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenGitHubCommand}" />
+                    </Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="*,Auto" InputTransparent="True">
+                        <Label Text="Report a problem" Style="{StaticResource SettingsRowLabel}"/>
+                        <Label Grid.Column="1" Text="›" TextColor="{StaticResource MutedText}" FontSize="18"/>
+                    </Grid>
+                </Border>
+                <BoxView HeightRequest="1" Color="{StaticResource Border}"/>
+                <Border Style="{StaticResource SettingsRow}" StrokeShape="RoundRectangle 0,0,12,12">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Terms of Service" Style="{StaticResource SettingsRowLabel}"/>
+                        <Label Grid.Column="1" Text="›" TextColor="{StaticResource MutedText}" FontSize="18"/>
+                    </Grid>
+                </Border>
 
-    </VerticalStackLayout>
+                <!-- Logout Button -->
+                <Button 
+                    Text="Log out"
+                    Command="{Binding LogoutCommand}"
+                    Style="{StaticResource DestructiveButton}"
+                    Margin="0,32,0,0"/>
+
+                <!-- App Version -->
+                <Label 
+                    Text="{Binding AppVersion, StringFormat='GoMeowee v{0}'}"
+                    Style="{StaticResource MutedLabel}"
+                    HorizontalOptions="Center"
+                    Margin="0,24,0,0"/>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>
