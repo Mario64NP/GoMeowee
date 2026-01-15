@@ -98,7 +98,7 @@
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:EventInterestDto">
-                            <Grid ColumnDefinitions="36,10,Auto" Padding="0,5">
+                            <Grid ColumnDefinitions="36,10,Auto" Padding="0,10">
 
                                 <!-- Avatar -->
                                 <Image

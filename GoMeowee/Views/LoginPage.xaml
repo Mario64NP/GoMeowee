@@ -2,60 +2,112 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:conv="clr-namespace:GoMeowee.Converters"
     xmlns:viewmodels="clr-namespace:GoMeowee.ViewModels"
     x:Class="GoMeowee.Views.LoginPage"
     x:DataType="viewmodels:LoginViewModel"
     Shell.NavBarIsVisible="False"
     BackgroundColor="{StaticResource AppBackground}">
 
-    <Grid>
-        <!-- Center column -->
-        <VerticalStackLayout
+    <ContentPage.Resources>
+        <conv:InvertedBoolConverter x:Key="InvertedBoolConverter"/>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="*,Auto,*">
+        
+        <!-- Branding Section -->
+        <VerticalStackLayout 
+            Grid.Row="0"
+            VerticalOptions="End"
             HorizontalOptions="Center"
-            VerticalOptions="Center"
-            WidthRequest="420"
-            Spacing="28"
-            Padding="24">
+            Spacing="8"
+            Padding="0,0,0,48">
+            
+            <!-- App Logo -->
+            <Label Text="GoTogether" Style="{StaticResource AppLogo}"/>
+            
+            <!-- Tagline -->
+            <Label 
+                Text="Find your people for any event"
+                Style="{StaticResource MutedLabel}"
+                HorizontalOptions="Center"/>
+        </VerticalStackLayout>
 
-            <!-- Header -->
-            <VerticalStackLayout Spacing="6">
-                <Label
-                    Text="Sign in"
-                    Style="{StaticResource PageTitle}" />
+        <!-- Login Form -->
+        <VerticalStackLayout
+            Grid.Row="1"
+            HorizontalOptions="Center"
+            WidthRequest="340"
+            Spacing="16">
 
-                <Label
-                    Text="Use your GoMeowee account"
-                    Style="{StaticResource MutedLabel}" />
-            </VerticalStackLayout>
+            <!-- Inputs Card -->
+            <VerticalStackLayout Spacing="12">
 
-            <!-- Inputs -->
-            <!-- <Border Style="{StaticResource Card}"> -->
-            <VerticalStackLayout Spacing="14">
+                <Label Text="Sign in" Style="{StaticResource SectionTitle}"/>
+
                 <Entry
                         Placeholder="Username"
                         Text="{Binding Username}" 
-                        Style="{StaticResource Login field}"/>
+                        Style="{StaticResource LoginField}"
+                        ReturnType="Next"/>
 
                 <Entry
                         Placeholder="Password"
                         IsPassword="True"
                         Text="{Binding Password}" 
-                        Style="{StaticResource Login field}"/>
+                        Style="{StaticResource LoginField}"
+                        ReturnType="Done"/>
+
+                <!-- Error Message -->
+                <Label
+                        Text="{Binding ErrorMessage}"
+                        IsVisible="{Binding HasError}"
+                        TextColor="#FF4444"
+                        FontSize="13"
+                        Margin="0,4,0,0"/>
+
             </VerticalStackLayout>
-            <!-- </Border> -->
 
-            <!-- Action -->
+            <!-- Login Button -->
             <Button
-                Text="Login"
-                Command="{Binding LoginCommand}" />
+                Text="Sign in"
+                Command="{Binding LoginCommand}"
+                IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                Style="{StaticResource PrimaryButton}"/>
 
-            <!-- Error -->
-            <Label
-                Text="{Binding ErrorMessage}"
-                IsVisible="{Binding HasError}"
-                TextColor="Red"
-                FontSize="13" />
+            <!-- Loading Indicator -->
+            <ActivityIndicator 
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                Color="{StaticResource AccentColor}"/>
+
         </VerticalStackLayout>
+
+        <!-- Footer -->
+        <VerticalStackLayout
+            Grid.Row="2"
+            VerticalOptions="End"
+            HorizontalOptions="Center"
+            Padding="0,0,0,32"
+            Spacing="8">
+            
+            <Label 
+                Text="Don't have an account?"
+                Style="{StaticResource MutedLabel}"
+                HorizontalOptions="Center"/>
+            
+            <Label 
+                Text="Create account"
+                TextColor="{StaticResource AccentColor}"
+                FontAttributes="Bold"
+                FontSize="14"
+                HorizontalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CreateAccountCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </VerticalStackLayout>
+        
     </Grid>
 
 </ContentPage>
