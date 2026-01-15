@@ -36,12 +36,14 @@ public class LoginViewModel : BaseViewModel
             {
                 ErrorMessage = result.ApiError;
                 OnPropertyChanged(nameof(ErrorMessage));
+                OnPropertyChanged(nameof(HasError));
             }
         }
         catch (Exception ex)
         {
             ErrorMessage = ex.Message;
             OnPropertyChanged(nameof(ErrorMessage));
+            OnPropertyChanged(nameof(HasError));
         }
         finally
         {
