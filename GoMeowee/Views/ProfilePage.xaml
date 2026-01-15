@@ -55,7 +55,7 @@
                     <!-- Avatar -->
                     <Border Style="{StaticResource AvatarLarge}">
                         <Image 
-                            Source="{Binding AvatarUrl, Converter={StaticResource AvatarConverter}}" 
+                            Source="{Binding FullAvatarUrl, Converter={StaticResource AvatarConverter}}" 
                             Aspect="AspectFill"/>
                     </Border>
                     

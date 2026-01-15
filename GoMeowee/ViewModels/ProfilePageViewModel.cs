@@ -15,8 +15,8 @@ public partial class ProfilePageViewModel(UserService userService, IAuthState au
     public bool IsMe { get; private set; }
     public string? Username { get; private set; }
     public string DisplayName { get; private set; } = string.Empty;
-    public string Bio { get; private set; } = string.Empty;
-    public string? AvatarUrl { get; private set; }
+    public string? Bio { get; private set; }
+    public string? FullAvatarUrl { get; private set; }
     public DateTime JoinedAt {  get; private set; }
     public bool HasInterests { get; private set; }
     public int InterestedEventsCount { get; private set; }
@@ -62,8 +62,8 @@ public partial class ProfilePageViewModel(UserService userService, IAuthState au
             UserId = targetUser.Id;
             Username = targetUser.Username;
             DisplayName = targetUser.DisplayName;
-            AvatarUrl = httpClient.BaseAddress + targetUser.AvatarUrl;
-            Bio = "Lorem ipsum dolor sit amet";
+            FullAvatarUrl = httpClient.BaseAddress + targetUser.AvatarUrl;
+            Bio = targetUser.Bio;
 
             OnPropertyChanged(string.Empty);
 
