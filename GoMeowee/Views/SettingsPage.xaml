@@ -55,14 +55,14 @@
                 <Label Text="Preferences" Style="{StaticResource SettingsSection}"/>
                 
                 <Border Style="{StaticResource SettingsRow}" StrokeShape="RoundRectangle 12,12,0,0">
-                    <Grid ColumnDefinitions="*,Auto">
+                    <Grid ColumnDefinitions="*,50">
                         <Label Text="Notifications" Style="{StaticResource SettingsRowLabel}"/>
                         <Switch Grid.Column="1" IsToggled="True" OnColor="{StaticResource AccentColor}"/>
                     </Grid>
                 </Border>
                 <BoxView HeightRequest="1" Color="{StaticResource Border}"/>
                 <Border Style="{StaticResource SettingsRow}" StrokeShape="RoundRectangle 0,0,12,12">
-                    <Grid ColumnDefinitions="*,Auto">
+                    <Grid ColumnDefinitions="*,50">
                         <Label Text="Dark mode" Style="{StaticResource SettingsRowLabel}"/>
                         <Switch Grid.Column="1" IsToggled="True" OnColor="{StaticResource AccentColor}" IsEnabled="False"/>
                     </Grid>
@@ -73,7 +73,7 @@
                 
                 <Border Style="{StaticResource SettingsRow}">
                     <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding OpenGitHubCommand}" />
+                        <TapGestureRecognizer Command="{Binding OpenGitHubIssuesCommand}" />
                     </Border.GestureRecognizers>
                     <Grid ColumnDefinitions="*,Auto" InputTransparent="True">
                         <Label Text="Report a problem" Style="{StaticResource SettingsRowLabel}"/>
