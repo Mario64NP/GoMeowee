@@ -1,9 +1,8 @@
-﻿using System.Collections.ObjectModel;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace GoMeowee.Models;
 
-public class EventsDayGroup : ObservableCollection<EventListItemDto>
+public partial class EventsDayGroup : List<EventListItemDto>
 {
     public DateTime Date { get; }
 

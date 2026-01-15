@@ -67,12 +67,4 @@ public class ApiClient
             ApiError = response.IsSuccessStatusCode ? null : await response.Content.ReadAsStringAsync()
         };
     }
-
-    public record HttpStatus(HttpResponseMessage m)
-    {
-        public bool IsSuccessStatusCode => m.IsSuccessStatusCode;
-        public int Code { get; set; } = (int)m.StatusCode;
-        public string? Message { get; set; } = m.Content.ToString();
-    }
-
 }
