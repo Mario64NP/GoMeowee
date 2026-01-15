@@ -1,14 +1,23 @@
+using GoMeowee.ViewModels;
+using System.Threading.Tasks;
+
 namespace GoMeowee.Views;
 
 public partial class ProfilePage : ContentPage
 {
-	public ProfilePage()
+    private readonly ProfilePageViewModel _viewModel;
+	public ProfilePage(ProfilePageViewModel viewModel)
 	{
 		InitializeComponent();
+        
+        BindingContext = viewModel;
+        _viewModel = viewModel;
 	}
 
-    private async void OnSettingsClicked(object sender, EventArgs e)
+    protected override async void OnAppearing()
     {
-        await Shell.Current.GoToAsync(nameof(SettingsPage));
+        base.OnAppearing();
+
+        await _viewModel.OnAppearing();
     }
 }

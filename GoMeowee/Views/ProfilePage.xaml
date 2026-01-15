@@ -1,45 +1,251 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GoMeowee.Views.ProfilePage">
+             xmlns:conv="clr-namespace:GoMeowee.Converters"
+             xmlns:models="clr-namespace:GoMeowee.Models"
+             xmlns:viewmodels="clr-namespace:GoMeowee.ViewModels"
+             x:Class="GoMeowee.Views.ProfilePage"
+             x:DataType="viewmodels:ProfilePageViewModel"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource AppBackground}">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Padding="24"
-            Spacing="24">
+    <ContentPage.Resources>
+        <conv:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+    </ContentPage.Resources>
 
-            <!-- Header -->
-            <VerticalStackLayout Spacing="8">
+    <Grid RowDefinitions="Auto,*">
+        
+        <!-- Navigation Header -->
+        <Grid Style="{StaticResource NavHeader}">
+            <Button 
+                Text="←" 
+                Command="{Binding GoBackCommand}" 
+                Style="{StaticResource IconButton}"
+                IsVisible="{Binding IsMe, Converter={x:StaticResource InvertedBoolConverter}}"/>
                 <Label
-                    Text="Your Profile"
-                    FontSize="28"
-                    FontAttributes="Bold" />
+                Grid.Column="1" 
+                Text="{Binding Username, StringFormat='@{0}'}" 
+                Style="{StaticResource NavTitle}"/>
+            <Button 
+                Grid.Column="2" 
+                Text="⚙️" 
+                Command="{Binding OpenSettingsPageCommand}" 
+                Style="{StaticResource IconButton}"
+                IsVisible="{Binding IsMe}"/>
+            <Button 
+                Grid.Column="2" 
+                Text="⋯" 
+                Command="{Binding OpenProfileMenuCommand}" 
+                Style="{StaticResource IconButton}"
+                IsVisible="{Binding IsMe, Converter={StaticResource InvertedBoolConverter}}"/>
+        </Grid>
 
+        <!-- Content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20" Spacing="20">
+                
+                <!-- Profile Header -->
+                <HorizontalStackLayout Spacing="16">
+                    
+                    <!-- Avatar -->
+                    <Border Style="{StaticResource AvatarLarge}">
+                        <Image 
+                            Source="{Binding AvatarUrl}" 
+                            Aspect="AspectFill"/>
+                    </Border>
+                    
+                    <!-- Name & Stats -->
+                    <VerticalStackLayout Spacing="4" VerticalOptions="Center">
+                        <Label Text="{Binding DisplayName}" Style="{StaticResource DisplayName}"/>
+
+                        <!-- Stats Row -->
+                        <HorizontalStackLayout Spacing="24" Margin="0,8,0,0">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding InterestedEventsCount}" Style="{StaticResource StatValue}"/>
+                                <Label Text="Events" Style="{StaticResource StatLabel}"/>
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                    
+                </HorizontalStackLayout>
+
+                <!-- Bio -->
+                <Label 
+                    Text="{Binding Bio}" 
+                    Style="{StaticResource BioLabel}"/>
+
+                <!-- Action Buttons -->
+                <Grid ColumnDefinitions="*,12,*" IsVisible="{Binding IsMe}">
+                    <Button 
+                        Grid.Column="0"
+                        Text="Edit profile" 
+                        Command="{Binding EditProfileCommand}" 
+                        Style="{StaticResource SecondaryButton}"/>
+                    <Button 
+                        Grid.Column="2"
+                        Text="Share profile" 
+                        Style="{StaticResource SecondaryButton}"/>
+                </Grid>
+
+                <Grid ColumnDefinitions="*,12,*" IsVisible="{Binding IsMe, Converter={StaticResource InvertedBoolConverter}}">
+                    <Button 
+                        Grid.Column="0"
+                        Text="Message" 
+                        Command="{Binding SendMessageCommand}" 
+                        Style="{StaticResource PrimaryButton}"/>
+                    <Button 
+                        Grid.Column="2"
+                        Text="Follow" 
+                        Style="{StaticResource SecondaryButton}"/>
+                </Grid>
+
+                <!-- Divider -->
+                <BoxView HeightRequest="1" Color="{StaticResource Border}" Margin="0,4"/>
+
+                <!-- Interests Section -->
+                <VerticalStackLayout Spacing="16">
+                    <Label Text="Interests" Style="{StaticResource SectionTitle}"/>
+                    
+                    <!-- Empty State -->
+                    <Border 
+                        Style="{StaticResource Card}"
+                        IsVisible="{Binding HasInterests, Converter={x:StaticResource InvertedBoolConverter}}">
+                        <VerticalStackLayout Spacing="8" HorizontalOptions="Center" Padding="20">
+                            <Label Text="🎭" FontSize="32" HorizontalOptions="Center"/>
+                            <Label 
+                                Text="No interests yet" 
+                                Style="{StaticResource MutedLabel}"
+                                HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+                    
+                    <!-- Interest Posts -->
+                    <CollectionView 
+                        ItemsSource="{Binding InterestedEvents}"
+                        SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:UserInterestDto">
+                                <VerticalStackLayout Spacing="0" Margin="0,0,0,20">
+                                    
+                                    <!-- Post Header: Avatar, Name, Time -->
+                                    <Grid ColumnDefinitions="36,10,*,Auto" Margin="0,0,0,10">
+                                        <Border Style="{StaticResource AvatarSmall}">
+                                            <Image Source="{Binding FullAvatarUrl}" Aspect="AspectFill"/>
+                                        </Border>
+
+                                        <VerticalStackLayout Grid.Column="2" Spacing="0" VerticalOptions="Center">
                 <Label
-                    Text="Account and app settings"
-                    FontSize="14"
-                    Opacity="0.7" />
+                                                Text="{Binding DisplayName}" 
+                                                Style="{StaticResource PostAuthorName}"/>
+                                            <Label 
+                                                Text="{Binding InterestedAtRelative}" 
+                                                Style="{StaticResource PostTimestamp}"/>
             </VerticalStackLayout>
+                                    </Grid>
 
-            <!-- Account card -->
+                                    <!-- Interest Message -->
+                                    <Label 
+                                        Text="{Binding Message}"
+                                        Style="{StaticResource PostMessage}"
+                                        Margin="0,0,0,12"/>
+                                    
+                                    <!-- Event Preview Card -->
             <Border
-                Padding="16"
-                CornerRadius="16"
-                HasShadow="False"
-                BackgroundColor="{AppThemeBinding Light=#F2F2F2, Dark=#1E1E1E}">
+                                        StrokeShape="RoundRectangle 12"
+                                        Stroke="{StaticResource Border}"
+                                        StrokeThickness="1"
+                                        BackgroundColor="{StaticResource BgCard}"
+                                        Padding="0">
+                                        <VerticalStackLayout Spacing="0">
+                                            
+                                            <!-- Hero Image -->
+                                            <Grid HeightRequest="160">
+                                                <!-- Fallback gradient when no image -->
+                                                <BoxView IsVisible="{Binding HasImage, Converter={StaticResource InvertedBoolConverter}}">
+                                                    <BoxView.Background>
+                                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                            <GradientStop Color="{StaticResource AccentColor}" Offset="0"/>
+                                                            <GradientStop Color="#6B0080" Offset="1"/>
+                                                        </LinearGradientBrush>
+                                                    </BoxView.Background>
+                                                </BoxView>
+                                                <Label 
+                                                    Text="🎉" 
+                                                    FontSize="48" 
+                                                    HorizontalOptions="Center" 
+                                                    VerticalOptions="Center"
+                                                    IsVisible="{Binding HasImage, Converter={StaticResource InvertedBoolConverter}}"/>
+                                                
+                                                <!-- Actual Image -->
+                                                <Image 
+                                                    Source="{Binding FullImageUrl}" 
+                                                    Aspect="AspectFill"
+                                                    IsVisible="{Binding HasImage}"/>
+                                                
+                                                <!-- Category Tag -->
+                                                <Border 
+                                                    StrokeShape="RoundRectangle 4"
+                                                    StrokeThickness="0"
+                                                    BackgroundColor="#99000000"
+                                                    Padding="8,4"
+                                                    Margin="10"
+                                                    HorizontalOptions="Start"
+                                                    VerticalOptions="Start">
+                                                    <Label 
+                                                        Text="{Binding Category}" 
+                                                        TextColor="White"
+                                                        FontSize="11"
+                                                        FontAttributes="Bold"
+                                                        TextTransform="Uppercase"/>
+                                                </Border>
+                                            </Grid>
+                                            
+                                            <!-- Event Details -->
+                                            <VerticalStackLayout Padding="14" Spacing="6">
+                                                <Label 
+                                                    Text="{Binding Title}" 
+                                                    Style="{StaticResource EventTitleLabel}"
+                                                    MaxLines="2"/>
+                                                
+                                                <HorizontalStackLayout Spacing="6">
+                                                    <Label Text="🕐" FontSize="12"/>
+                                                    <Label 
+                                                        Text="{Binding StartsAt, StringFormat='{0:ddd, MMM d · h:mm tt}'}" 
+                                                        Style="{StaticResource PostTimestamp}"/>
+                                                </HorizontalStackLayout>
 
-                <VerticalStackLayout Spacing="12">
+                                                <HorizontalStackLayout Spacing="6">
+                                                    <Label Text="📍" FontSize="12"/>
                     <Label
-                        Text="Account"
-                        FontAttributes="Bold" />
+                                                        Text="{Binding Location}" 
+                                                        Style="{StaticResource PostTimestamp}"
+                                                        LineBreakMode="TailTruncation"/>
+                                                </HorizontalStackLayout>
+                                                
+                                                <!-- Interested Count -->
+                                                <HorizontalStackLayout Spacing="6" Margin="0,4,0,0">
+                                                    <Label Text="👥" FontSize="12"/>
+                                                    <Label Style="{StaticResource PostTimestamp}">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span Text="{Binding InterestedCount}" FontAttributes="Bold" TextColor="{StaticResource TextPrimary}"/>
+                                                                <Span Text=" interested"/>
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                </HorizontalStackLayout>
+                                            </VerticalStackLayout>
 
-                    <Button
-                        Text="Settings"
-                        HorizontalOptions="Fill"
-                        Clicked="OnSettingsClicked" />
                 </VerticalStackLayout>
             </Border>
 
         </VerticalStackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
     </ScrollView>
+    </Grid>
 </ContentPage>
