@@ -60,15 +60,18 @@
                         TextColor="{StaticResource TextSecondary}" />
                 </HorizontalStackLayout>
 
+                <!-- DESCRIPTION -->
+                <Label
+                    Text="{Binding Description}"
+                    Style="{StaticResource BioLabel}"
+                    Margin="0,8,0,0"/>
+
                 <!-- INTEREST BUTTON -->
                 <Button
                     Text="{Binding IsUserInterested, Converter={StaticResource InterestTextConverter}}"
                     Command="{Binding ToggleInterestCommand}"
-                    CornerRadius="10"
-                    HeightRequest="46"
-                    BackgroundColor="{StaticResource AccentColor}"
-                    TextColor="White"
-                    FontAttributes="Bold" />
+                    Style="{StaticResource PrimaryButton}"
+                    Margin="0,8,0,0"/>
 
             </VerticalStackLayout>
 
