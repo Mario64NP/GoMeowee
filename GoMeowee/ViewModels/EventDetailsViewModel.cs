@@ -1,4 +1,4 @@
-﻿using GoMeowee.Models;
+﻿using GoMeowee.Models.Interests;
 using GoMeowee.Services;
 using GoMeowee.Services.Interfaces;
 using System.Collections.ObjectModel;

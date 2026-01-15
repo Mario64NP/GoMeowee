@@ -1,5 +1,6 @@
 ﻿using GoMeowee.Models;
 using GoMeowee.Models.Auth;
+using GoMeowee.Models.Users;
 using GoMeowee.Services.Interfaces;
 
 namespace GoMeowee.Services;

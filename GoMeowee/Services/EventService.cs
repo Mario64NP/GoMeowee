@@ -1,4 +1,6 @@
 ﻿using GoMeowee.Models;
+using GoMeowee.Models.Events;
+using GoMeowee.Models.Interests;
 
 namespace GoMeowee.Services;
 

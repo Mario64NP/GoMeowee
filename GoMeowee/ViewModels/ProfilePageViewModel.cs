@@ -1,4 +1,5 @@
-﻿using GoMeowee.Models;
+﻿using GoMeowee.Models.Interests;
+using GoMeowee.Models.Users;
 using GoMeowee.Services;
 using GoMeowee.Services.Interfaces;
 using GoMeowee.Views;

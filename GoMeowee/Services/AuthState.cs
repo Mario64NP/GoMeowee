@@ -1,4 +1,4 @@
-﻿using GoMeowee.Models;
+﻿using GoMeowee.Models.Users;
 using GoMeowee.Services.Interfaces;
 
 namespace GoMeowee.Services;

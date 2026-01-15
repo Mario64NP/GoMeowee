@@ -1,4 +1,5 @@
-﻿using GoMeowee.Models;
+using GoMeowee.Models.Interests;
+using GoMeowee.Models.Users;
 
 namespace GoMeowee.Services;
 

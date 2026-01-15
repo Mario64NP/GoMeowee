@@ -1,4 +1,4 @@
-using GoMeowee.Models;
+using GoMeowee.Models.Events;
 using GoMeowee.ViewModels;
 
 namespace GoMeowee.Views;

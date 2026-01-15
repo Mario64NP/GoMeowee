@@ -1,4 +1,4 @@
-﻿namespace GoMeowee.Models;
+﻿namespace GoMeowee.Models.Interests;
 
 public class UserInterestDto
 {

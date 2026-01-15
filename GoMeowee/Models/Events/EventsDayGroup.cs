@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace GoMeowee.Models;
+namespace GoMeowee.Models.Events;
 
 public partial class EventsDayGroup : List<EventListItemDto>
 {

@@ -1,4 +1,4 @@
-﻿using GoMeowee.Models;
+﻿using GoMeowee.Models.Events;
 using GoMeowee.Services;
 using GoMeowee.Views;
 using System.Collections.ObjectModel;
