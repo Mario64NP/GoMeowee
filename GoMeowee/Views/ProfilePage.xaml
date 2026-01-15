@@ -23,6 +23,10 @@
                 Command="{Binding GoBackCommand}" 
                 Style="{StaticResource IconButton}"
                 IsVisible="{Binding IsMe, Converter={x:StaticResource InvertedBoolConverter}}"/>
+            <BoxView
+                WidthRequest="44" 
+                BackgroundColor="Transparent"
+                IsVisible="{Binding IsMe}}"/>
             <Label 
                 Grid.Column="1" 
                 Text="{Binding Username, StringFormat='@{0}'}" 
@@ -43,7 +47,7 @@
 
         <!-- Content -->
         <ScrollView Grid.Row="1">
-            <VerticalStackLayout Padding="20" Spacing="20">
+            <VerticalStackLayout Padding="20,10" Spacing="20">
                 
                 <!-- Profile Header -->
                 <HorizontalStackLayout Spacing="16">
