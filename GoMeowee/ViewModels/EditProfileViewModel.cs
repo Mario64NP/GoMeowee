@@ -15,9 +15,12 @@ public partial class EditProfileViewModel : BaseViewModel
     public string DisplayName { get; set; } = string.Empty;
     public string? Bio { get; set; }
     public string? FullAvatarUrl { get; set; }
+    public string NewTag { get; set { field = value; OnPropertyChanged(); } } = string.Empty;
+
     public ObservableCollection<string> Tags { get; set; } = [];
     public ICommand GoBackCommand { get; } = new Command(async () => { await Shell.Current.GoToAsync(".."); });
     public ICommand DeleteTagCommand { get; }
+    public ICommand AddTagCommand { get; }
     public ICommand UpdateAvatarCommand { get; }
     public ICommand SaveChangesCommand { get; }
 
@@ -28,6 +31,7 @@ public partial class EditProfileViewModel : BaseViewModel
         _httpClient = httpClient;
 
         DeleteTagCommand = new Command(async (tag) => await DeleteTag(tag));
+        AddTagCommand = new Command(async () => await AddTag());
         SaveChangesCommand = new Command(async () => await SaveChanges());
         UpdateAvatarCommand = new Command(async () => await UpdateAvatar());
     }
@@ -54,6 +58,7 @@ public partial class EditProfileViewModel : BaseViewModel
             Bio = _authState.CurrentUser.Bio;
             FullAvatarUrl = _authState.CurrentUser.AvatarUrl is not null ? _httpClient.BaseAddress + _authState.CurrentUser.AvatarUrl : null;
             
+            Tags.Clear();
             foreach (string tag in _authState.CurrentUser.Tags)
                 Tags.Add(tag);
 
@@ -62,6 +67,19 @@ public partial class EditProfileViewModel : BaseViewModel
         finally
         {
             IsBusy = false;
+        }
+    }
+
+    private async Task AddTag()
+    {
+        if (string.IsNullOrWhiteSpace(NewTag))
+            return;
+
+        var cleanTag = NewTag.Trim();
+        if (!Tags.Contains(cleanTag))
+        {
+            Tags.Add(cleanTag);
+            NewTag = string.Empty; // Clear input
         }
     }
 
