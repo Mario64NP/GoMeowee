@@ -21,7 +21,7 @@ namespace GoMeowee
         protected override Window CreateWindow(IActivationState? activationState)
         {
             _ = InitializeAuth();
-            return new Window(CreateRootPage());
+            return new Window(CreateRootPage()) { Width = 480};
         }
 
         private Page CreateRootPage()

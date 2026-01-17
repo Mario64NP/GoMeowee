@@ -19,7 +19,8 @@
         <!-- Navigation Header -->
         <Grid Style="{StaticResource NavHeader}">
             <Button 
-                Text="←" 
+                Text="&#xE0A6;"
+                FontFamily="SegoeFluentIcons"
                 Command="{Binding GoBackCommand}" 
                 Style="{StaticResource IconButton}"
                 IsVisible="{Binding IsMe, Converter={x:StaticResource InvertedBoolConverter}}"/>
@@ -33,13 +34,15 @@
                 Style="{StaticResource NavTitle}"/>
             <Button 
                 Grid.Column="2" 
-                Text="⚙️" 
+                Text="&#xE115;"
+                FontFamily="SegoeFluentIcons"
                 Command="{Binding OpenSettingsPageCommand}" 
                 Style="{StaticResource IconButton}"
                 IsVisible="{Binding IsMe}"/>
             <Button 
                 Grid.Column="2" 
-                Text="⋯" 
+                Text="&#xE10C;" 
+                FontFamily="SegoeFluentIcons"
                 Command="{Binding OpenProfileMenuCommand}" 
                 Style="{StaticResource IconButton}"
                 IsVisible="{Binding IsMe, Converter={StaticResource InvertedBoolConverter}}"/>

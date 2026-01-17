@@ -12,7 +12,8 @@
         <!-- Navigation Header -->
         <Grid Style="{StaticResource NavHeader}">
             <Button 
-                Text="←" 
+                Text="&#xE0A6;"
+                FontFamily="SegoeFluentIcons"
                 Command="{Binding GoBackCommand}" 
                 Style="{StaticResource IconButton}"/>
             <Label 
