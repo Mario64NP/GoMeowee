@@ -24,7 +24,7 @@ public partial class ProfilePageViewModel(UserService userService, IAuthState au
     public ICommand GoBackCommand { get; } = new Command(async () => { await Shell.Current.GoToAsync(".."); });
     public ICommand OpenSettingsPageCommand { get; } = new Command(async () => { await Shell.Current.GoToAsync(nameof(SettingsPage)); });
     public ICommand OpenProfileMenuCommand { get; } = new Command(async () => await OpenMenu());
-    public ICommand EditProfileCommand { get; private set; } = new Command(async () => { await Shell.Current.GoToAsync(".."); }); //goto edit profile page
+    public ICommand EditProfileCommand { get; private set; } = new Command(async () => { await Shell.Current.GoToAsync(nameof(EditProfilePage)); });
     public ICommand SendMessageCommand { get; private set; } = new Command(async () => { await Shell.Current.GoToAsync(".."); }); //goto messages page
 
     public async Task OnAppearing()

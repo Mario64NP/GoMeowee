@@ -1,4 +1,4 @@
-using GoMeowee.Models.Interests;
+﻿using GoMeowee.Models.Interests;
 using GoMeowee.Models.Users;
 
 namespace GoMeowee.Services;
@@ -35,8 +35,30 @@ public class UserService(ApiClient apiClient)
         return result.Response;
     }
 
-    public async Task<bool> UploadAvatar()
+    public async Task<UserDetailsDto?> UpdateUserAsync(string username, string? displayname, string? bio, IEnumerable<string>? tags)
     {
-        return true; 
+        var req = new UpdateUserRequest()
+        {
+            DisplayName = displayname,
+            Bio = bio,
+            Tags = tags
+        };
+
+        var result = await apiClient.PatchAsync<UserDetailsDto>($"api/Users/{username}", req);
+
+        if (!result.IsSuccess)
+            return null;
+
+        return result.Response;
+    }
+
+    public async Task<string?> UploadAvatarAsync(FileResult photo)
+    {
+        var result = await apiClient.PostPhotoAsync($"api/Users/avatar", photo);
+
+        if (!result.IsSuccess)
+            return null;
+
+        return result.Response;
     }
 }

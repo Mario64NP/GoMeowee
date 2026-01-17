@@ -5,6 +5,12 @@ using GoMeowee.ViewModels;
 using GoMeowee.Views;
 using Microsoft.Extensions.Logging;
 
+[assembly: XmlnsDefinition("http://schemas.gomeowee.com/models", "GoMeowee.Models")]
+[assembly: XmlnsDefinition("http://schemas.gomeowee.com/models", "GoMeowee.Models.Auth")]
+[assembly: XmlnsDefinition("http://schemas.gomeowee.com/models", "GoMeowee.Models.Users")]
+[assembly: XmlnsDefinition("http://schemas.gomeowee.com/models", "GoMeowee.Models.Events")]
+[assembly: XmlnsDefinition("http://schemas.gomeowee.com/models", "GoMeowee.Models.Interests")]
+
 namespace GoMeowee
 {
     public static class MauiProgram
@@ -41,12 +47,14 @@ namespace GoMeowee
             builder.Services.AddTransient<EventsViewModel>();
             builder.Services.AddTransient<EventDetailsViewModel>();
             builder.Services.AddTransient<ProfilePageViewModel>();
+            builder.Services.AddTransient<EditProfileViewModel>();
             builder.Services.AddTransient<SettingsViewModel>();
 
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<EventsPage>();
             builder.Services.AddTransient<EventDetailsPage>();
             builder.Services.AddTransient<ProfilePage>();
+            builder.Services.AddTransient<EditProfilePage>();
             builder.Services.AddTransient<SettingsPage>();
 
 

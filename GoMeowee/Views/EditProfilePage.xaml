@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:conv="clr-namespace:GoMeowee.Converters"
+             xmlns:models="http://schemas.gomeowee.com/models"
+             xmlns:viewmodels="clr-namespace:GoMeowee.ViewModels"
+             x:Name="editProfilePage"
+             x:Class="GoMeowee.Views.EditProfilePage"
+             x:DataType="viewmodels:EditProfileViewModel">
+
+    <ContentPage.Resources>
+        <conv:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        <conv:AvatarConverter x:Key="AvatarConverter" />
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,*">
+        
+        <!-- Navigation Header -->
+        <Grid Style="{StaticResource NavHeader}">
+            <Button 
+                Text="←" 
+                Command="{Binding GoBackCommand}" 
+                Style="{StaticResource IconButton}"/>
+            <Label 
+                Grid.Column="1" 
+                Text="{Binding Username, StringFormat='@{0}'}" 
+                Style="{StaticResource NavTitle}"/>
+            <BoxView
+                Grid.Column="2"
+                WidthRequest="44" 
+                BackgroundColor="Transparent"/>
+        </Grid>
+
+        <Grid Grid.Row="1" RowDefinitions="Auto,*">
+            <VerticalStackLayout>
+                <Border Style="{StaticResource AvatarMedium}">
+                    <Image Aspect="AspectFill"
+                        Source="{Binding FullAvatarUrl, Converter={StaticResource AvatarConverter}}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding UpdateAvatarCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Border>
+                <Label Text="Edit avatar"/>
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Spacing="10" Grid.Row="1">
+                <Entry Text="{Binding DisplayName}" Placeholder="Display name"/>
+                <Entry Text="{Binding Bio}" Placeholder="Bio"/>
+                <Picker/>
+                <FlexLayout Direction="Row" Wrap="Wrap"
+                            BindableLayout.ItemsSource="{Binding Tags}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <Border Style="{StaticResource Tag}">
+                                <HorizontalStackLayout>
+                                    <Label Text="{Binding ., StringFormat='#{0}'}"/>
+                                    <Button 
+                                        Text="×" 
+                                        HeightRequest="20" 
+                                        WidthRequest="20"
+                                        Padding="0"
+                                        FontSize="10"
+                                        x:DataType="{x:Type viewmodels:EditProfileViewModel}"
+                                        Command="{Binding DeleteTagCommand, Source={x:Reference editProfilePage}}"
+                                        CommandParameter="{Binding .}"/>
+                                </HorizontalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+            </VerticalStackLayout>
+        </Grid>
+        
+    </Grid>
+</ContentPage>
