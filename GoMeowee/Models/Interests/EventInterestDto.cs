@@ -1,4 +1,6 @@
-﻿namespace GoMeowee.Models.Interests;
+﻿using System.Windows.Input;
+
+namespace GoMeowee.Models.Interests;
 
 public class EventInterestDto
 {
@@ -9,4 +11,5 @@ public class EventInterestDto
     public string? Message { get; set; }
     public DateTime InterestedAt { get; set; }
     public string InterestedAtRelative { get; set; } = string.Empty;
+    public ICommand? OpenProfileCommand { get; set; }
 }

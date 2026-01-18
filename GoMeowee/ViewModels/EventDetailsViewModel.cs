@@ -1,6 +1,7 @@
 ﻿using GoMeowee.Models.Interests;
 using GoMeowee.Services;
 using GoMeowee.Services.Interfaces;
+using GoMeowee.Views;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -72,6 +73,7 @@ public partial class EventDetailsViewModel : BaseViewModel
                 {
                     person.FullAvatarUrl = person.AvatarUrl is not null ? _httpClient.BaseAddress + person.AvatarUrl : null;
                     person.InterestedAtRelative = GetRelativeTime(person.InterestedAt);
+                    person.OpenProfileCommand = new Command(async () => await OpenProfileAsync(person.Username));
                     InterestedPeople.Add(person);
                 }
         }
@@ -130,6 +132,14 @@ public partial class EventDetailsViewModel : BaseViewModel
         {
             IsBusy = false;
         }
+    }
+
+    private async Task OpenProfileAsync(string username)
+    {
+        if (string.IsNullOrWhiteSpace(username))
+            return;
+
+        await Shell.Current.GoToAsync($"{nameof(ProfilePage)}?Username={Uri.EscapeDataString(username)}");
     }
 
     private static string GetRelativeTime(DateTime dateTime)

@@ -13,7 +13,7 @@ public partial class ProfilePageViewModel(UserService userService, IAuthState au
 {
     public Guid UserId { get; private set; }
     public bool IsMe { get; private set; }
-    public string? Username { get; private set; }
+    public string? Username { get; set; }
     public string DisplayName { get; private set; } = string.Empty;
     public string? Bio { get; private set; }
     public string? FullAvatarUrl { get; private set; }

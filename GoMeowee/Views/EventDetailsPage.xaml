@@ -112,6 +112,10 @@
                                             RadiusX="18"
                                             RadiusY="18" />
                                     </Image.Clip>
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding OpenProfileCommand}"/>
+                                    </Image.GestureRecognizers>
                                 </Image>
 
                                 <!-- Name + message -->
@@ -120,6 +124,11 @@
                                     Spacing="2">
 
                                     <HorizontalStackLayout>
+                                         <HorizontalStackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Command="{Binding OpenProfileCommand}"/>
+                                        </HorizontalStackLayout.GestureRecognizers>
+                                        
                                         <Label
                                             Text="{Binding DisplayName}"
                                             FontAttributes="Bold"
